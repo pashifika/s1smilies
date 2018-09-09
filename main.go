@@ -73,14 +73,14 @@ func main() {
 			fmt.Print("请输入需要下载的麻将脸类型ID: ")
 		default: // Download process
 			if input != "all" {
+				if _, ok := sdl.Stype[input]; !ok {
+					fmt.Println("输入错误, 请再次输入！")
+					fmt.Print("请输入需要下载的麻将脸类型ID: ")
+					continue
+				}
 				dlList = []string{input}
 			} else {
 				dlList = allList
-			}
-			if _, ok := sdl.Stype[input]; !ok {
-				fmt.Println("输入错误, 请再次输入！")
-				fmt.Print("请输入需要下载的麻将脸类型ID: ")
-				continue
 			}
 
 			fmt.Println("下载程序干活中，请勿关闭本窗口...")
@@ -115,7 +115,7 @@ func main() {
 						} else {
 							count.Add(1)
 						}
-					}(smiliesURL_root + sdl.Stype[stID].DirPath + "/" + fdl.FileName, fdl.Name)
+					}(smiliesURL_root+sdl.Stype[stID].DirPath+"/"+fdl.FileName, fdl.Name)
 				}
 
 				// Wait all download thread complete
